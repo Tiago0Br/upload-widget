@@ -1,11 +1,33 @@
 services:
+  app:
+    container_name: upload-widget-server
+    build: .
+    restart: unless-stopped
+    ports:
+      - 3000:3333
+    environment:
+      - CLOUDFLARE_ACCOUNT_ID=${CLOUDFLARE_ACCOUNT_ID}
+      - CLOUDFLARE_ACCESS_KEY_ID=${CLOUDFLARE_ACCESS_KEY_ID}
+      - CLOUDFLARE_SECRET_ACESS_KEY=${CLOUDFLARE_SECRET_ACESS_KEY}
+      - CLOUDFLARE_BUCKET=${CLOUDFLARE_BUCKET}
+      - CLOUDFLARE_PUBLIC_URL=${CLOUDFLARE_PUBLIC_URL}
+      - DATABASE_URL=postgresql://docker:docker@upload-server-pg:5432/upload
+    depends_on:
+      - upload-server-pg
+
   upload-server-pg:
     image: bitnami/postgresql
+    restart: unless-stopped
     ports:
-      - 5432:5432
+      - ${DB_PORT}:5432
     environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=upload
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     volumes:
       - './docker:/docker-entrypoint-initdb.d'
+      - db_data:/bitnami/postgresql
+
+volumes:
+  db_data:
+    driver: local
