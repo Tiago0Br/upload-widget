@@ -10,7 +10,7 @@ export const healthCheckRoute: FastifyPluginAsyncZod = async server => {
       },
     },
     (_, reply) => {
-      return reply.status(200).send({ status: 'ok' })
+      return reply.status(200).send({ status: 'A API está rodando!' })
     }
   )
 }
