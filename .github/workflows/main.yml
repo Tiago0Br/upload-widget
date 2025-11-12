@@ -44,23 +44,23 @@ jobs:
           cd web
           pnpm run build
 
-      - name: Configure AWS Credentials
-        id: configure-aws-credentials
-        uses: aws-actions/configure-aws-credentials@v4.1.0
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
+      # - name: Configure AWS Credentials
+      #   id: configure-aws-credentials
+      #   uses: aws-actions/configure-aws-credentials@v4.1.0
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Sync files to AWS
-        id: sync-files-to-aws
-        run: |
-          aws s3 sync ${{ env.FRONTEND_DIST_FOLDER }} s3://${{ env.S3_BUCKET_NAME }} --delete
+      # - name: Sync files to AWS
+      #   id: sync-files-to-aws
+      #   run: |
+      #     aws s3 sync ${{ env.FRONTEND_DIST_FOLDER }} s3://${{ env.S3_BUCKET_NAME }} --delete
 
-      - name: Invalidate CDN cache
-        id: invalidate-cdn-cache
-        run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+      # - name: Invalidate CDN cache
+      #   id: invalidate-cdn-cache
+      #   run: |
+      #     aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
 
   backend:
     name: Build Backend
