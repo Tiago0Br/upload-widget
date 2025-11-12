@@ -3,7 +3,7 @@ import { isRight, unwrapEither } from '@/shared/either'
 import { makeUpload } from '@/test/factories/make-upload'
 import { randomUUID } from 'node:crypto'
 import { describe, expect, it, vi } from 'vitest'
-import { exportUploads } from '../export-uploads'
+import { exportUploads } from './export-uploads'
 
 describe('export uploads', () => {
   it('should be able to export uploads', async () => {

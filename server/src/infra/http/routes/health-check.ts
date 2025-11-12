@@ -1,3 +1,4 @@
+import { log } from '@/infra/logger'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 
 export const healthCheckRoute: FastifyPluginAsyncZod = async server => {
@@ -10,6 +11,8 @@ export const healthCheckRoute: FastifyPluginAsyncZod = async server => {
       },
     },
     (_, reply) => {
+      log.info('Health check endpoint was called')
+
       return reply.status(200).send({ status: 'A API está rodando!' })
     }
   )
