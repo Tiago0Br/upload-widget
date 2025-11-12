@@ -4,7 +4,8 @@ import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
-import { log } from '../logger'
+import { log } from '../lib/logger'
+import { vault } from '../lib/vault'
 import { errorHandler } from './middlewares/error-handler'
 import { exportUploadRoute } from './routes/export-uploads'
 import { getUploadsRoute } from './routes/get-uploads'
@@ -46,6 +47,7 @@ server
     host: '0.0.0.0',
     port: 3333,
   })
-  .then(() => {
+  .then(async () => {
+    const values = await vault.read('/secret/data/widget-server') // load env vars from vault
     log.info('HTTP server running on http://localhost:3333')
   })

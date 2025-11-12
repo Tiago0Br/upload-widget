@@ -9,6 +9,9 @@ const envSchema = z.object({
   CLOUDFLARE_SECRET_ACESS_KEY: z.string(),
   CLOUDFLARE_BUCKET: z.string(),
   CLOUDFLARE_PUBLIC_URL: z.string().url(),
+  SECRET_API_VERSION: z.string(),
+  SECRET_API_ENDPOINT: z.string().url(),
+  SECRET_API_TOKEN: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

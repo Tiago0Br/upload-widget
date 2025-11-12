@@ -1,4 +1,4 @@
-import { log } from '@/infra/logger'
+import { log } from '@/infra/lib/logger'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 
 export const healthCheckRoute: FastifyPluginAsyncZod = async server => {
