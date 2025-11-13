@@ -5,7 +5,6 @@ import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
 import { log } from '../lib/logger'
-import { vault } from '../lib/vault'
 import { errorHandler } from './middlewares/error-handler'
 import { exportUploadRoute } from './routes/export-uploads'
 import { getUploadsRoute } from './routes/get-uploads'
@@ -48,6 +47,11 @@ server
     port: 3333,
   })
   .then(async () => {
-    const values = await vault.read('/secret/data/widget-server') // load env vars from vault
+    // const values = await vault.read('/secret/data/widget-server') // load env vars from vault
+
+    // const values = await client.send(
+    //   new GetParameterCommand({ Name: 'CLOUDFLARE_PUBLIC_URL', WithDecryption: true })
+    // ) // load env vars from AWS SSM
+
     log.info('HTTP server running on http://localhost:3333')
   })
